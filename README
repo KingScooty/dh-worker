@@ -1,0 +1,2 @@
+- Saves to API on new tweet
+- If API is unresponsive, store tweet, and try again after 30s
