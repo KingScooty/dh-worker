@@ -3,13 +3,12 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "Scotty Vernon <scott.vernon@gmail.com> (http://wildflame.co.uk)",
   "license": "ISC",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
+    "twit": "^2.2.3"
   }
 }
