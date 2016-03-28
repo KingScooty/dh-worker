@@ -10,7 +10,7 @@ var stream = require('../index');
 
 console.log(stream);
 
-describe('insert_doc()', () => {
+describe('Worker', () => {
   var insert_doc;
 
   before(function() {
@@ -21,7 +21,7 @@ describe('insert_doc()', () => {
     insert_doc = sinon.stub(couch_helpers, "insert_doc").returns(response);
   });
 
-  it('Mocking Twit?', (done) => {
+  it('saves tweet to database when detected', (done) => {
     stream.emit('tweet', {id_str: "123456789"});
     sinon.assert.calledOnce(insert_doc);
     sinon.assert.calledWith(insert_doc, {id_str: "123456789", type: "tweet"});
