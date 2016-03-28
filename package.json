@@ -13,6 +13,7 @@
     "sinon": "^1.17.3"
   },
   "dependencies": {
+    "bluebird": "^3.3.4",
     "nano": "^6.2.0",
     "twit": "^2.2.3"
   }
