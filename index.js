@@ -1,19 +1,18 @@
 const Twit = require('twit');
-const db = require('db');
-const nano = db.nano;
-const database = db.database;
+const insert_doc = require('helpers/couchdb/insert_doc');
 
-var T = new Twit({
+const T = new Twit({
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
   access_token: process.env.ACCESS_TOKEN,
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-var stream = T.stream('statuses/filter', {
+const stream = T.stream('statuses/filter', {
   track: [
-    '#digitalheroes2015',
-    '#halloweenheroes2015'
+    '#digitalheroes2016',
+    '#digital-heroes2016',
+    '#digitalheroes'
   ]
 });
 
@@ -28,11 +27,12 @@ stream.on('tweet', function callback(tweet) {
    * Trigger a save on the API[?]
    */
 
-  database.insert(tweet, tweet.id_str, function callback(err, res) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`[LOG][2/2]: Tweet ${tweet.id_str} saved to database.`);
-    }
+  insert_doc(tweet, tweet.id_str, 0)
+  .then(function(response) {
+    console.log(response);
+    console.log(`[LOG][2/2]: Tweet ${tweet.id_str} saved to database.`);
+  })
+  .catch(function(error) {
+    console.log(error);
   });
 });
