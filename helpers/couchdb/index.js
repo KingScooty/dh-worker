@@ -8,16 +8,17 @@ const database = db.database;
  * Inserts a doc into a database. If the database doesn't exist, create
  * the database, and then save the doc.
  *
- * insert_doc({nano: true}, 'database_name' , 0);
+ * insert_doc({nano: true}, 'docName' , 0);
  *
  * @param {Object} doc - document
+ * @param {String} docName
  * @param {Integer} tried
  */
 
-function insert_doc(doc, id, tried) {
+const insert_doc = function insert_doc(doc, id, tried) {
   return new Promise(function(fullfill, reject) {
 
-    db.insert(doc, id,
+    database.insert(doc, id,
       function (error,http_body,http_headers) {
         if(error) {
           if(error.message === 'no_db_file'  && tried < 1) {
@@ -35,4 +36,4 @@ function insert_doc(doc, id, tried) {
   });
 }
 
-module.exports = insert_doc;
+module.exports = { insert_doc };
