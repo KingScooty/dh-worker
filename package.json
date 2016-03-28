@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha",
+    "test:watch": "npm run test -- --watch"
+  },
   "keywords": [],
   "author": "Scotty Vernon <scott.vernon@gmail.com> (http://wildflame.co.uk)",
   "license": "ISC",
