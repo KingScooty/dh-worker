@@ -1,8 +1,10 @@
 var chai = require('chai');
 var sinon = require('sinon');
+var sinonChai = require('sinon-chai');
 
 var expect = chai.expect;
 chai.should();
+chai.use(sinonChai);
 
 
 var couch_helpers = require('../helpers/couchdb');
@@ -23,8 +25,11 @@ describe('Worker', () => {
 
   it('saves tweet to database when detected', (done) => {
     stream.emit('tweet', {id_str: "123456789"});
-    sinon.assert.calledOnce(insert_doc);
-    sinon.assert.calledWith(insert_doc, {id_str: "123456789", type: "tweet"});
+
+    expect(insert_doc).to.have.been.calledWith({
+      id_str: '123456789', type: 'tweet'
+    });
+    expect(insert_doc).to.have.been.calledOnce;
     done();
   });
 });
