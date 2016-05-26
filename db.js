@@ -1,7 +1,7 @@
-const config = require('./config/');
-const host =  config.database.host;
-
-var nano = require('nano')(`http://${host}`);
+// const config = require('./config/');
+// const host =  config.database.host;
+//
+// var nano = require('nano')(`http://${host}`);
 
 /*
   http://couchdb-3c369e79-1.kingscooty.cont.tutum.io:5984/_all_dbs
@@ -17,7 +17,8 @@ var nano = require('nano')(`http://${host}`);
   Would have to be a secure endpoint.
 */
 
-var database = nano.use('digitalheroes-halloween-2015');
+// var database = nano.use('digitalheroes-halloween-2015');
+module.exports = 'digitalheroes-2016';
 
-module.exports.connection = nano;
-module.exports.database = database;
+// module.exports.connection = nano;
+// module.exports.database = database;

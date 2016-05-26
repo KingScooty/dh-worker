@@ -1,8 +1,14 @@
 const Promise = require('bluebird');
 
-const db = require('../../db');
-const nano = db.nano;
-const database = db.database;
+const DB_NAME = require('../../db');
+
+const config =  require('../../config/').database;
+const host = config.host;
+const user = config.auth.username;
+const pass = config.auth.password;
+
+const nano = require('nano')(`http://${user}:${pass}@${host}`);
+const database = nano.use(DB_NAME);
 
 /**
  * Inserts a doc into a database. If the database doesn't exist, create
@@ -15,6 +21,9 @@ const database = db.database;
  * @param {Integer} tried
  */
 
+ // const insert_doc = function insert_doc(doc, db_name, tried) {
+ //   var db = nano.use(db_name);
+
 const insert_doc = function insert_doc(doc, id, tried) {
   return new Promise(function(fullfill, reject) {
 
@@ -23,8 +32,8 @@ const insert_doc = function insert_doc(doc, id, tried) {
         if(error) {
           if(error.message === 'no_db_file'  && tried < 1) {
             // create database and retry
-            return nano.db.create(db_name, function () {
-              insert_doc(doc, db_name, tried + 1);
+            return nano.db.create(DB_NAME, function () {
+              insert_doc(doc, id, tried + 1);
               fullfill(http_body);
             });
           }
