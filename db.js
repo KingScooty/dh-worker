@@ -1,6 +1,5 @@
 // const config = require('./config/');
 // const host =  config.database.host;
-//
 // var nano = require('nano')(`http://${host}`);
 
 /*
