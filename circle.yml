@@ -1,0 +1,31 @@
+machine:
+  node:
+    version: 6.2.0
+  # Set the timezeone - any value from /usr/share/zoneinfo/ is valid here
+  timezone:
+    Europe/London
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+
+  services:
+    - docker
+  post:
+    - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
+
+dependencies:
+  pre:
+    - docker --version
+  override:
+    - npm install
+
+test:
+  override:
+    - NODE_ENV=test DB_HOST=http://127.0.0.1 npm run test
+
+deployment:
+  master:
+      branch: master
+      commands:
+        - docker build -t ${DOCKER_USER}/dh-worker:latest -t ${DOCKER_USER}/dh-worker:${CIRCLE_BUILD_NUM} .
+
+        - docker push ${DOCKER_USER}/dh-worker
