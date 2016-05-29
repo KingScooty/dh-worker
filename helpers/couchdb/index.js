@@ -4,10 +4,18 @@ const DB_NAME = require('../../db');
 
 const config =  require('../../config/').database;
 const host = config.host;
-const user = config.auth.username;
-const pass = config.auth.password;
+let nano;
 
-const nano = require('nano')(`http://${user}:${pass}@${host}`);
+if (process.env.NODE_ENV === "production") {
+  const user = config.auth.username;
+  const pass = config.auth.password;
+
+  nano = require('nano')(`http://${user}:${pass}@${host}`);
+} else {
+  nano = require('nano')(`http://${host}`);
+}
+
+
 const database = nano.use(DB_NAME);
 
 /**
