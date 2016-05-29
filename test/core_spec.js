@@ -10,8 +10,6 @@ chai.use(sinonChai);
 var couch_helpers = require('../helpers/couchdb');
 var stream = require('../index');
 
-console.log(stream);
-
 describe('Worker', () => {
   var insert_doc;
 
