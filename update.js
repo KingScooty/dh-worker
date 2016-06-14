@@ -21,6 +21,10 @@ const status = module.exports = T.get('statuses/show', { id: '210290790281388030
 // });
 
 /*
+
+Callback is an array. Want to bulk insert each array item into database.
+// couchdb.insert_doc(tweet, tweet.id_str, 0)
+
 Working ID's for 2012:
 
 210290790281388033
