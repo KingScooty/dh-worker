@@ -1,17 +1,52 @@
 const Twit = require('twit');
-// const couchdb = require('./helpers/couchdb');
+const couchdb = require('./helpers/couchdb');
 
-const T = new Twit({
-  consumer_key: process.env.CONSUMER_KEY || 'a',
-  consumer_secret: process.env.CONSUMER_SECRET || 'b',
-  access_token: process.env.ACCESS_TOKEN || 'c',
-  access_token_secret: process.env.ACCESS_TOKEN_SECRET || 'd'
-});
+// const T = new Twit({
+//   consumer_key: process.env.CONSUMER_KEY || 'a',
+//   consumer_secret: process.env.CONSUMER_SECRET || 'b',
+//   access_token: process.env.ACCESS_TOKEN || 'c',
+//   access_token_secret: process.env.ACCESS_TOKEN_SECRET || 'd'
+// });
+//
+// const status = module.exports = T.get('statuses/show', { id: '210290790281388030'}, function(err, data, response) {
+//   console.log('STATUS:');
+//   console.log(data);
+//
+//   var processedData = data.map(function(tweet, index) {
+//     tweet._id = parseInt(tweet.id_str);
+//     tweet.type = 'tweet';
+//     return tweet;
+//   });
+//
+//   var docs = {
+//     "docs": processedData
+//   };
+//
+//   couchdb.bulk_insert_doc(docs, 0);
+//
+// });
 
-const status = module.exports = T.get('statuses/show', { id: '210290790281388030'}, function(err, data, response) {
-  console.log('STATUS:');
-  console.log(data);
-});
+var docs = {
+  "docs": [
+  {"id": "Find", "label": "Find..."},
+  {"id": "FindAgain", "label": "Find Again"},
+  {"id": "Copy"},
+  {"id": "CopyAgain", "label": "Copy Again"},
+  {"id": "CopySVG", "label": "Copy SVG"},
+  {"id": "ViewSVG", "label": "View SVG"},
+  {"id": "ViewSource", "label": "View Source"},
+  {"id": "SaveAs", "label": "Save As"}
+]};
+
+couchdb.bulk_insert_doc(docs, 'bulktest', 0);
+
+// couchdb.insert_doc(tweet, tweet.id_str, 0)
+// .then(function(response) {
+//   console.log(`[LOG][2/2]: Tweet ${tweet.id_str} saved to database.`);
+// })
+// .catch(function(error) {
+//   console.log(error);
+// });
 
 // const statuses = module.exports = T.get('statuses/lookup', {
 //   id: '210290790281388030,208998986344955900'
@@ -127,6 +162,7 @@ Working ID's for 2012:
 208472386486546432
 208283124289900545
 208222586495184897
+
 208212970457665537
 208212213570355200
 208201694121705472
