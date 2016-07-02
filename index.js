@@ -18,6 +18,9 @@ const stream = module.exports = T.stream('statuses/filter', {
 
 stream.on('tweet', function callback(tweet) {
   console.log(`[LOG][1/2]: Tweet received at ${(new Date).toISOString()}`);
+  /*
+   * Ignore retweets.
+   */
   if (tweet.retweeted_status) return;
   /*
    * Set type field for the doc, to enable it to be queried by the couchdb view
